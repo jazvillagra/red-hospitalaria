@@ -4,6 +4,7 @@ import com.github.jazvillagra.redhospitalaria.dto.ServicioDTO;
 import com.github.jazvillagra.redhospitalaria.entities.Servicio;
 import com.github.jazvillagra.redhospitalaria.mapper.impl.ServicioMapper;
 import com.github.jazvillagra.redhospitalaria.repository.ServicioRepository;
+import com.github.jazvillagra.redhospitalaria.service.CamasService;
 import com.github.jazvillagra.redhospitalaria.service.ServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,19 +23,26 @@ public class ServicioServiceImpl implements ServicioService {
     @Autowired
     private ServicioMapper mapper;
 
+    @Autowired
+    private CamasService camasService;
+
     @Override
     public List<ServicioDTO> getAllServicios() {
-        return null;
+        return mapper.mapAsList(repository.findAll());
     }
 
     @Override
     public ServicioDTO save(ServicioDTO servicioDTO) {
-        Servicio servicio = mapper.mapToEntity(servicioDTO);
-        return mapper.mapToDto(repository.save(servicio));
+        actualizarConteoCamas(servicioDTO);
+        return mapper.mapToDto(repository.save(mapper.mapToEntity(servicioDTO)));
     }
 
     @Override
     public ServicioDTO getByCodServicio(String codServicio) {
         return mapper.mapToDto(repository.findByCodServicio(codServicio));
+    }
+    // TODO probar si esto funciona
+    private void actualizarConteoCamas(ServicioDTO servicioDTO){
+        servicioDTO.setNroCamasTotales(camasService.getCamasByServicio(servicioDTO.getId()));
     }
 }

@@ -14,4 +14,6 @@ public interface HospitalService {
     HospitalDTO save(HospitalDTO hospitalDTO);
 
     HospitalDTO getByCodHospital(String codHospital);
+
+    HospitalDTO getById(Long idHospital);
 }

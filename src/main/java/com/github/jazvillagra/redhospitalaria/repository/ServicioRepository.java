@@ -14,4 +14,6 @@ public interface ServicioRepository extends JpaRepository<Servicio, ServicioDTO>
     List<Servicio> findAll();
 
     Servicio findByCodServicio(String codServicio);
+
+    Servicio findById(Long id);
 }

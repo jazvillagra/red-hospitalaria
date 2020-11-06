@@ -37,4 +37,9 @@ public class HospitalServiceImpl implements HospitalService {
     public HospitalDTO getByCodHospital(String codHospital) {
         return mapper.mapToDto(repository.findByCodHospital(codHospital));
     }
+
+    @Override
+    public HospitalDTO getById(Long idHospital) {
+        return mapper.mapToDto(repository.findById(idHospital));
+    }
 }
