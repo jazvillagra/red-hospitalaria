@@ -8,37 +8,36 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-/**
- * @author jazvillagra
- */
+
 @Entity
-@Table(schema = "public", name = "servicio")
+@Table(schema = "public", name = "camas")
 @Getter
 @Setter
-public class Servicio {
+public class Camas {
 
     @Id
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "id_hospital")
     @NotNull
-    private String nombre;
+    private Long idHospital;
 
-    @Column(name = "cod_servicio")
+    @Column(name = "id_servicio")
     @NotNull
-    private String codServicio;
+    private Long idServicio;
 
-    @Column(name = "nro_camas_totales")
-    private int nroCamasTotales;
+    @Column(name = "cant_camas")
+    @NotNull
+    private int cantCamas;
 
     @Override
     public String toString() {
         return new org.apache.commons.lang3.builder.ToStringBuilder(this)
                 .append("id", id)
-                .append("nombre", nombre)
-                .append("codServicio", codServicio)
-                .append("nroCamasTotales", nroCamasTotales)
+                .append("idHospital", idHospital)
+                .append("idServicio", idServicio)
+                .append("cantCamas", cantCamas)
                 .toString();
     }
 }
