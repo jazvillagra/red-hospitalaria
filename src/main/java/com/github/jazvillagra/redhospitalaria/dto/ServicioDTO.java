@@ -13,7 +13,7 @@ public class ServicioDTO {
     private Long id;
     private String nombre;
     private String codServicio;
-    private int nroCamasDisponibles;
+    private int nroCamasTotales;
 
     @Override
     public String toString() {
@@ -21,7 +21,7 @@ public class ServicioDTO {
                 .append("id", id)
                 .append("nombre", nombre)
                 .append("codServicio", codServicio)
-                .append("nroCamasDisponibles", nroCamasDisponibles)
+                .append("nroCamasTotales", nroCamasTotales)
                 .toString();
     }
 }
