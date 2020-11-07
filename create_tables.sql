@@ -11,6 +11,7 @@ CREATE TABLE hospital(
 CREATE TABLE servicio(
     id bigserial primary key,
     nombre varchar(255) NOT NULL,
+    descripcion varchar(1000) NOT NULL,
     cod_servicio varchar(20) NOT NULL,
     nro_camas_totales int NOT NULL
 );

@@ -104,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": null,\r\n    \"nombre\": \"Traumatologia\",\r\n    \"codServicio\": \"traumato01\",\r\n    \"nroCamasTotales\": null\r\n}",
+							"raw": "{\r\n    \"id\": null,\r\n    \"nombre\": \"Traumatologia\",\r\n    \"codServicio\": \"traumato01\",\r\n    \"descripcion\": \"Traumatologia piso 1\"\r\n    \"nroCamasTotales\": null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -455,6 +455,35 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a80dbfa1-c555-4a3a-843c-10f047d1643f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0309d55d-a47a-47a5-b24d-788b6f0e9e8f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "1c4de5da-3ed8-4958-bbbb-3da49c3397a9",
+			"key": "local_url",
+			"value": "http://68.183.129.82:8080/api"
 		}
 	],
 	"protocolProfileBehavior": {}

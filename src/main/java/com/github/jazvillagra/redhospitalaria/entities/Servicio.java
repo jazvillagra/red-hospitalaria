@@ -31,12 +31,17 @@ public class Servicio {
     @Column(name = "nro_camas_totales")
     private int nroCamasTotales;
 
+    @Column(name = "descripcion")
+    @NotNull
+    private String descripcion;
+
     @Override
     public String toString() {
         return new org.apache.commons.lang3.builder.ToStringBuilder(this)
                 .append("id", id)
                 .append("nombre", nombre)
                 .append("codServicio", codServicio)
+                .append("descripcion", descripcion)
                 .append("nroCamasTotales", nroCamasTotales)
                 .toString();
     }
