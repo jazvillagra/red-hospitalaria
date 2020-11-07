@@ -3,16 +3,17 @@ package com.github.jazvillagra.redhospitalaria.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
-
+/**
+ * @author jazvillagra
+ */
 @Getter
 @Setter
 public class ConsultaDTO {
     private Long id;
     private Long idPaciente;
     private Long idServicioPrestado;
-    private Long idDetalle;
+    private String fechaConsulta;
+    private DetalleConsultaDTO detalle;
 
     @Override
     public String toString() {
@@ -20,7 +21,8 @@ public class ConsultaDTO {
                 .append("id", id)
                 .append("idPaciente", idPaciente)
                 .append("idServicioPrestado", idServicioPrestado)
-                .append("idDetalle", idDetalle)
+                .append("fechaConsulta", fechaConsulta)
+                .append("detalle", detalle)
                 .toString();
     }
 }
