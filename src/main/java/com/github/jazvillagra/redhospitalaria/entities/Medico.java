@@ -4,10 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -18,6 +15,8 @@ import java.time.LocalDate;
 public class Medico {
 
     @Id
+    @SequenceGenerator(name = "medico_id_seq", sequenceName = "medico_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "medico_id_seq")
     @Column(name = "id")
     private Long id;
 
@@ -41,7 +40,7 @@ public class Medico {
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
-    private void setFechaNacimiento(String fechaNacimiento){
+    public void setFechaNacimiento(String fechaNacimiento){
         this.fechaNacimiento = LocalDate.parse(fechaNacimiento);
     }
 

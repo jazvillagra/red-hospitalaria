@@ -17,6 +17,8 @@ import java.math.BigInteger;
 public class Hospital {
 
     @Id
+    @SequenceGenerator(name = "hospital_id_seq", sequenceName = "hospital_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "hospital_id_seq")
     @Column(name = "id")
     private Long id;
 

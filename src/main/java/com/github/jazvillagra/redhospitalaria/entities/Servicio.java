@@ -3,10 +3,7 @@ package com.github.jazvillagra.redhospitalaria.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 /**
  * @author jazvillagra
@@ -18,6 +15,8 @@ import javax.validation.constraints.NotNull;
 public class Servicio {
 
     @Id
+    @SequenceGenerator(name = "servicio_id_seq", sequenceName = "servicio_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "servicio_id_seq")
     @Column(name = "id")
     private Long id;
 
