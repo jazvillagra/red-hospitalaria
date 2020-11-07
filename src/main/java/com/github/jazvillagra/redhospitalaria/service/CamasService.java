@@ -20,4 +20,6 @@ public interface CamasService {
     CamasDTO getByIdHospitalAndIdServicio(Long idHospital, Long idServicio);
 
     CamasDTO save(CamasDTO camasDTO);
+
+    void actualizarConteoCamas(Long idServicioPrestado);
 }

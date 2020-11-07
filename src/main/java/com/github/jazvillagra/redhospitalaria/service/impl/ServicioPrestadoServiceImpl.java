@@ -54,4 +54,9 @@ public class ServicioPrestadoServiceImpl implements ServicioPrestadoService {
         List<ServicioPrestado> servicioPrestados = repository.findByIdMedico(idMedico);
         return mapper.mapAsList(servicioPrestados);
     }
+
+    @Override
+    public ServicioPrestadoDTO getById(Long id) {
+        return mapper.mapToDto(repository.findById(id));
+    }
 }

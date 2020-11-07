@@ -9,6 +9,7 @@ import com.github.jazvillagra.redhospitalaria.service.ServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +29,12 @@ public class ServicioServiceImpl implements ServicioService {
 
     @Override
     public List<ServicioDTO> getAllServicios() {
-        return mapper.mapAsList(repository.findAll());
+        List<ServicioDTO> servicios = new ArrayList<>();
+        for(Servicio servicio : repository.findAll()){
+            ServicioDTO dto = mapper.mapToDto(servicio);
+            dto.setNroCamasTotales(camasService.getCamasByServicio(servicio.getId()));
+        }
+        return servicios;
     }
 
     @Override

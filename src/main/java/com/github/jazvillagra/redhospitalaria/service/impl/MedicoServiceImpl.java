@@ -52,7 +52,7 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Override
     public MedicoDTO getByNombresApellidos(String nombres, String apellidos) {
-        return medicoMapper.mapToDto(medicoRepository.findByNombresAndApellidos(nombres, apellidos));
+        return medicoMapper.mapToDto(medicoRepository.findByNombresAndApellidos(nombres.toUpperCase(), apellidos.toUpperCase()));
     }
 
     @Override
@@ -60,7 +60,8 @@ public class MedicoServiceImpl implements MedicoService {
 
         Medico medico = medicoMapper.mapToEntity(medicoDTO);
         medico.setFechaNacimiento(medicoDTO.getFechaNacimiento());
-
+        medico.setNombres(medicoDTO.getNombres().toUpperCase());
+        medico.setApellidos(medicoDTO.getApellidos().toUpperCase());
         saveServiciosMedico(medicoDTO, medico);
         // se mapea lo guardado en la bd a un dto para mostrar los datos correctos
         MedicoDTO response = medicoMapper.mapToDto(medico);

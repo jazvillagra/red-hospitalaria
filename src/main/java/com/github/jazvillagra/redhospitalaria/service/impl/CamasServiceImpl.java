@@ -1,11 +1,14 @@
 package com.github.jazvillagra.redhospitalaria.service.impl;
 
 import com.github.jazvillagra.redhospitalaria.dto.CamasDTO;
+import com.github.jazvillagra.redhospitalaria.dto.ServicioPrestadoDTO;
 import com.github.jazvillagra.redhospitalaria.entities.Camas;
+import com.github.jazvillagra.redhospitalaria.entities.ServicioPrestado;
 import com.github.jazvillagra.redhospitalaria.mapper.impl.CamasMapper;
 import com.github.jazvillagra.redhospitalaria.repository.CamasRepository;
 import com.github.jazvillagra.redhospitalaria.service.CamasService;
 import com.github.jazvillagra.redhospitalaria.service.HospitalService;
+import com.github.jazvillagra.redhospitalaria.service.ServicioPrestadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,9 @@ public class CamasServiceImpl implements CamasService {
 
     @Autowired
     private HospitalService hospitalService;
+
+    @Autowired
+    private ServicioPrestadoService servicioPrestadoService;
 
     @Override
     public List<CamasDTO> getByIdHospital(Long idHospital) {
@@ -68,5 +74,14 @@ public class CamasServiceImpl implements CamasService {
     public CamasDTO save(CamasDTO camas) {
         Camas entity = camasMapper.mapToEntity(camas);
         return camasMapper.mapToDto(camasRepository.save(entity));
+    }
+
+    @Override
+    public void actualizarConteoCamas(Long idServicioPrestado) {
+        ServicioPrestadoDTO servicioPrestado = servicioPrestadoService.getById(idServicioPrestado);
+        Camas camas = camasRepository.findByIdHospitalAndIdServicio(servicioPrestado.getIdHospital(), servicioPrestado.getIdServicio());
+        int cantCamasActuales = camas.getCantCamas();
+        camas.setCantCamas(cantCamasActuales - 1);
+        camasRepository.save(camas);
     }
 }

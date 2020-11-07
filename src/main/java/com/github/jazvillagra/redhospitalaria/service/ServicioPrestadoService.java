@@ -20,4 +20,6 @@ public interface ServicioPrestadoService {
     ServicioPrestadoDTO getByIdHospitalAndIdServicioAndIdMedico(Long idHospital, Long idServicio, Long idMedico);
 
     List<ServicioPrestadoDTO> getByIdMedico(Long idMedico);
+
+    ServicioPrestadoDTO getById(Long id);
 }
