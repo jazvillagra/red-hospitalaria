@@ -6,7 +6,7 @@ Jazmín Villagra
 ### Dependencias
 
 * Java 8
-* Postgres10
+* Postgres 9+
 
 ### Run Proyect
 
@@ -23,4 +23,4 @@ Jazmín Villagra
     $ mvn clean install -DskipTests
     
 
-5- Se puede acceder a traves de http://68.183.129.82:8080/api/    
+5- Se puede acceder a traves de http://192.168.0.8:8080/api/    
