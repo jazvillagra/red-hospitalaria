@@ -1,10 +1,7 @@
 package com.github.jazvillagra.redhospitalaria.web.controller;
 
 import com.github.jazvillagra.redhospitalaria.constants.ApiPaths;
-import com.github.jazvillagra.redhospitalaria.dto.CamasDTO;
-import com.github.jazvillagra.redhospitalaria.dto.HospitalDTO;
-import com.github.jazvillagra.redhospitalaria.dto.MedicoDTO;
-import com.github.jazvillagra.redhospitalaria.dto.ServicioDTO;
+import com.github.jazvillagra.redhospitalaria.dto.*;
 import com.github.jazvillagra.redhospitalaria.entities.Camas;
 import com.github.jazvillagra.redhospitalaria.service.*;
 import com.github.jazvillagra.redhospitalaria.web.response.ListResponseDTO;
@@ -38,6 +35,12 @@ public class ApiController {
 
     @Autowired
     private CamasService camasService;
+
+    @Autowired
+    private PacienteService pacienteService;
+
+    @Autowired
+    private ConsultaService consultaService;
 
     /**
      * Hospital Services
@@ -108,4 +111,44 @@ public class ApiController {
     public ResponseEntity<Integer> getCamasDisponiblesByIdServicio(@PathVariable Long idServicio) {
         return ResponseEntity.ok(camasService.getCamasByServicio(idServicio));
     }
+    /**
+     * Paciente services
+     */
+    @GetMapping(ApiPaths.BASE_PACIENTE_BY_NOMBRE_APELLIDO)
+    public ResponseEntity<ObjectResponseDTO<PacienteDTO>> getPacientesByNombreAndApellido(@RequestParam String nombres,
+                                                                                          @RequestParam String apellidos){
+        return ResponseEntity.ok(ObjectResponseDTO.success(pacienteService.getByNombreAndApellido(nombres, apellidos)));
+    }
+    @GetMapping(ApiPaths.BASE_PACIENTE_BY_COD_HISTORIAL)
+    public ResponseEntity<ObjectResponseDTO<HistorialMedicoDTO>> getHistorialPaciente(@PathVariable String codHistorial){
+        return ResponseEntity.ok(ObjectResponseDTO.success(pacienteService.getHistorialMedicoByCodHistorial(codHistorial)));
+    }
+    @PostMapping(ApiPaths.PACIENTE_SAVE)
+    public ResponseEntity<ObjectResponseDTO<PacienteDTO>> savePaciente(@RequestBody PacienteDTO pacienteDTO){
+        return ResponseEntity.ok(ObjectResponseDTO.success(pacienteService.save(pacienteDTO)));
+    }
+    @DeleteMapping(ApiPaths.BASE_PACIENTE_BY_COD_HISTORIAL)
+    public ResponseEntity<String> deleteHistorialMedicoPaciente(@PathVariable String codHistorial){
+        pacienteService.deleteHistorialPaciente(codHistorial);
+        return ResponseEntity.ok(codHistorial);
+    }
+    /**
+     * Consulta services
+     */
+    @PostMapping(ApiPaths.SAVE_CONSULTA)
+    public ResponseEntity<ObjectResponseDTO<ConsultaDTO>> saveConsulta(@RequestBody ConsultaDTO consultaDTO) {
+        return ResponseEntity.ok(ObjectResponseDTO.success(consultaService.save(consultaDTO)));
+    }
+
+    @GetMapping(ApiPaths.CONSULTA_BY_ID)
+    public ResponseEntity<ObjectResponseDTO<ConsultaDTO>> getConsultaById(@PathVariable(name = "idConsulta") Long idConsulta) {
+        return ResponseEntity.ok(ObjectResponseDTO.success(consultaService.getById(idConsulta)));
+    }
+
+    @DeleteMapping(ApiPaths.CONSULTA_BY_ID)
+    public ResponseEntity<Long> deleteConsultaPaciente(@PathVariable Long idConsulta){
+        consultaService.deleteConsulta(idConsulta);
+        return ResponseEntity.ok(idConsulta);
+    }
+
 }

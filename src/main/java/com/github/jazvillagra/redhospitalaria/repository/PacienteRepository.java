@@ -14,4 +14,6 @@ public interface PacienteRepository extends JpaRepository<Paciente, PacienteDTO>
     Paciente findByNombresAndApellidos(String nombres, String Apellidos);
 
     Paciente findByCodHistorial(String codHistorial);
+
+    Paciente findById(Long id);
 }

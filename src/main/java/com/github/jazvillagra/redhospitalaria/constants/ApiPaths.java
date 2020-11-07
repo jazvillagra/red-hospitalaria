@@ -38,4 +38,17 @@ public class ApiPaths {
     public static final String REGISTRAR_SERVICIO_HOSPITAL = BASE_HOSPITAL + "/registrar-servicio";
     public static final String CAMAS_DISPONIBLES_BY_HOSPITAL = BASE_CAMAS + "/hospital/{codHospital}";
     public static final String CAMAS_DISPONIBLES_BY_ID_SERVICIO = BASE_CAMAS + "/servicio/{idServicio}";
+    /**
+     * Paciente URLs
+     */
+    public static final String BASE_PACIENTE = BASE + "/paciente";
+    public static final String BASE_PACIENTE_BY_NOMBRE_APELLIDO = BASE_PACIENTE + "/nombre/apellido";
+    public static final String BASE_PACIENTE_BY_COD_HISTORIAL = BASE_PACIENTE + "/historial/{codHistorial}";
+    public static final String PACIENTE_SAVE = BASE_PACIENTE + "/save";
+    /**
+     * Consulta URLs
+     */
+    public static final String BASE_CONSULTA = BASE + "/consulta";
+    public static final String SAVE_CONSULTA = BASE_CONSULTA + "/save";
+    public static final String CONSULTA_BY_ID = BASE_CONSULTA + "/{idConsulta}";
 }
