@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "f946df9c-46f0-43e9-87d3-cc1a768643f1",
+		"name": "RedHospitalariaCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "hospital",
+			"item": [
+				{
+					"name": "getAll()",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/hospital",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"hospital"
+							]
+						},
+						"description": "Obtiene todos los hospitales registrados"
+					},
+					"response": []
+				},
+				{
+					"name": "save()",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":null,\r\n    \"codHospital\": \"ips-centro\",\r\n    \"nombre\": \"Hospital IPS Central\",\r\n    \"ciudad\": \"Asuncion\",\r\n    \"telefono\": \"021908977\",\r\n    \"director\": \"Dr. Juan Lopez\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/hospital/save",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"hospital",
+								"save"
+							]
+						},
+						"description": "Guarda los datos de un hospital nuevo en la red.\r\n\r\nSi se especifica un id, se realiza la actualizacion del registro con ese id"
+					},
+					"response": []
+				},
+				{
+					"name": "getByCodHospital()",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/hospital/clinicasAsu",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"hospital",
+								"clinicasAsu"
+							]
+						},
+						"description": "Obtiene el hospital por su código único"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "servicio",
+			"item": [
+				{
+					"name": "getAll()",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/servicio",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"servicio"
+							]
+						},
+						"description": "Obtiene todos los servicios registrados"
+					},
+					"response": []
+				},
+				{
+					"name": "save()",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"nombre\": \"Traumatologia\",\r\n    \"codServicio\": \"traumato01\",\r\n    \"nroCamasTotales\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/servicio/save",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"servicio",
+								"save"
+							]
+						},
+						"description": "Guarda un nuevo servicio en la red.\r\n\r\nSi se especifica un id, se realiza la actualizacion del registro con ese id"
+					},
+					"response": []
+				},
+				{
+					"name": "getByCodServicio()",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/servicio/traumato01",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"servicio",
+								"traumato01"
+							]
+						},
+						"description": "Obtiene un servicio por su código único"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "medico",
+			"item": [
+				{
+					"name": "getAll()",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/medico",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"medico"
+							]
+						},
+						"description": "Obtiene los datos de todos los médicos registrados en la red"
+					},
+					"response": []
+				},
+				{
+					"name": "save()",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":null,\r\n    \"tipoDocumento\": \"CI\",\r\n    \"nroDocumento\": \"1200876\",\r\n    \"nombres\": \"Mario Raul\",\r\n    \"apellidos\": \"Martinez Gomez\",\r\n    \"fechaNacimiento\": \"1970-06-05\",\r\n    \"servicios\": [\r\n        {\r\n            \"codHospital\":\"clinicasAsu\",\r\n            \"idServicio\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/medico/save",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"medico",
+								"save"
+							]
+						},
+						"description": "Guarda los datos de un nuevo médico en la red.\r\n\r\nSi se especifica un id, se realiza la actualizacion del registro con ese id"
+					},
+					"response": []
+				},
+				{
+					"name": "getMedicoByNombreApellido()",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombres",
+									"value": "Mario Raul",
+									"type": "text"
+								},
+								{
+									"key": "apellidos",
+									"value": "Martinez Gomez",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local_url}}/medico/nombre-medico",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"medico",
+								"nombre-medico"
+							]
+						},
+						"description": "Obtiene los datos de un médico por su nombre y apellido."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "camas",
+			"item": [
+				{
+					"name": "getCantidadCamasDisponiblesEnHospital()",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/camas/hospital/clinicasAsu",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"camas",
+								"hospital",
+								"clinicasAsu"
+							]
+						},
+						"description": "Obtiene cantidad de camas disponibles en un hospital en su totalidad"
+					},
+					"response": []
+				},
+				{
+					"name": "registrarServicioHospital",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"idHospital\": 1,\r\n    \"idServicio\": 1,\r\n    \"cantCamas\": 20 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/hospital/registrar-servicio",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"hospital",
+								"registrar-servicio"
+							]
+						},
+						"description": "Registra un servicio a ser ofrecido en un hospital. Ambos registros (tanto del hospital como del servicio) deben existir previo al registro con este endpoint\r\n\r\nSi se especifica un id, se realiza la actualizacion del registro con ese id"
+					},
+					"response": []
+				},
+				{
+					"name": "getCantidadCamasDisponiblesEnServicio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/camas/servicio/1",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"camas",
+								"servicio",
+								"1"
+							]
+						},
+						"description": "Obtiene cantidad de camas disponibles para un servicio"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "paciente",
+			"item": [
+				{
+					"name": "save()",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":null,\r\n    \"codHistorial\": \"jp2907\",\r\n    \"nombres\": \"Juan Jose\",\r\n    \"apellidos\":\"Perez\",\r\n    \"tipoDocumento\":\"CI\",\r\n    \"nroDocumento\":\"2546998\",\r\n    \"fechaNacimiento\":\"1986-07-29\",\r\n    \"datosAdicionales\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/paciente/save",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"paciente",
+								"save"
+							]
+						},
+						"description": "Guarda los datos de un nuevo paciente en el sistema.\r\n\r\nSi se especifica un id, se realiza la actualizacion del registro con ese id"
+					},
+					"response": []
+				},
+				{
+					"name": "getHistorialPaciente()",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/paciente/historial/jp2907",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"paciente",
+								"historial",
+								"jp2907"
+							]
+						},
+						"description": "Obtiene el historial médico del paciente segun su código único de historial"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteHistorialPaciente()",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/paciente/historial/jp2907",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"paciente",
+								"historial",
+								"jp2907"
+							]
+						},
+						"description": "Elimina el historial de un paciente en el sistema"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "consultas",
+			"item": [
+				{
+					"name": "save()",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":null,\r\n    \"idPaciente\": 2,\r\n    \"idServicioPrestado\": 3,\r\n    \"fechaConsulta\": \"2020-11-06 15:30\",\r\n    \"detalle\":{\r\n        \"id\": null,\r\n        \"diagnostico\": \"Anemia leve\",\r\n        \"tratamiento\": \"Suero por intravenosa y obs 24 hs. Medicamentos XYZ recetados cada 8 horas\",\r\n        \"pacienteAdmitido\": true,\r\n        \"nroHabitacion\": 121,\r\n        \"fechaAlta\": null\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/consulta/save",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"consulta",
+								"save"
+							]
+						},
+						"description": "Guarda los datos de una consulta de un paciente junto con su detalle.\r\n\r\nSi se especifican los ids correspondientes a la consulta y al detalle, se realiza la actualizacion de los registros con esos ids"
+					},
+					"response": []
+				},
+				{
+					"name": "getById()",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/consulta/1",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"consulta",
+								"1"
+							]
+						},
+						"description": "Obtiene los datos de una consulta por su id"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteConsultaById()",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/consulta/1",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"consulta",
+								"1"
+							]
+						},
+						"description": "Elimina el registro de una consulta y de su detalle correspondiente a partir del id de la consulta"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
