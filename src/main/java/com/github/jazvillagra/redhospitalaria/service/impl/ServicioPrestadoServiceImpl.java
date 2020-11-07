@@ -1,6 +1,8 @@
 package com.github.jazvillagra.redhospitalaria.service.impl;
 
 import com.github.jazvillagra.redhospitalaria.dto.ServicioPrestadoDTO;
+import com.github.jazvillagra.redhospitalaria.entities.Medico;
+import com.github.jazvillagra.redhospitalaria.entities.ServicioPrestado;
 import com.github.jazvillagra.redhospitalaria.mapper.impl.ServicioPrestadoMapper;
 import com.github.jazvillagra.redhospitalaria.repository.ServicioPrestadoRepository;
 import com.github.jazvillagra.redhospitalaria.service.ServicioPrestadoService;
@@ -38,7 +40,8 @@ public class ServicioPrestadoServiceImpl implements ServicioPrestadoService {
 
     @Override
     public ServicioPrestadoDTO save(ServicioPrestadoDTO servicioPrestadoDTO) {
-        return mapper.mapToDto(repository.save(mapper.mapToEntity(servicioPrestadoDTO)));
+        ServicioPrestado entity = mapper.mapToEntity(servicioPrestadoDTO);
+        return mapper.mapToDto(repository.save(entity));
     }
 
     @Override
@@ -48,6 +51,7 @@ public class ServicioPrestadoServiceImpl implements ServicioPrestadoService {
 
     @Override
     public List<ServicioPrestadoDTO> getByIdMedico(Long idMedico) {
-        return mapper.mapAsList(repository.findByIdMedico(idMedico));
+        List<ServicioPrestado> servicioPrestados = repository.findByIdMedico(idMedico);
+        return mapper.mapAsList(servicioPrestados);
     }
 }

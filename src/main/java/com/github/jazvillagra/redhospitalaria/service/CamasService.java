@@ -18,4 +18,6 @@ public interface CamasService {
     int getCamasByServicio(Long idServicio);
 
     CamasDTO getByIdHospitalAndIdServicio(Long idHospital, Long idServicio);
+
+    CamasDTO save(CamasDTO camasDTO);
 }

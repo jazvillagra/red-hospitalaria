@@ -4,7 +4,6 @@ import com.github.jazvillagra.redhospitalaria.dto.MedicoDTO;
 import com.github.jazvillagra.redhospitalaria.dto.ServicioMedicoDTO;
 import com.github.jazvillagra.redhospitalaria.dto.ServicioPrestadoDTO;
 import com.github.jazvillagra.redhospitalaria.entities.Medico;
-import com.github.jazvillagra.redhospitalaria.entities.ServicioPrestado;
 import com.github.jazvillagra.redhospitalaria.mapper.impl.MedicoMapper;
 import com.github.jazvillagra.redhospitalaria.repository.MedicoRepository;
 import com.github.jazvillagra.redhospitalaria.service.HospitalService;
@@ -13,7 +12,6 @@ import com.github.jazvillagra.redhospitalaria.service.ServicioPrestadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,14 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Override
     public List<MedicoDTO> getAllMedicos() {
-        return medicoMapper.mapAsList(medicoRepository.findAll());
+        List<MedicoDTO> medicoList = new ArrayList<>();
+
+        for(MedicoDTO medico : medicoMapper.mapAsList(medicoRepository.findAll())){
+            List<ServicioPrestadoDTO> serviciosPrestadosPorMedico = servicioPrestadoService.getByIdMedico(medico.getId());
+            medico.setServicios(extractServicioMedicoDtos(serviciosPrestadosPorMedico));
+            medicoList.add(medico);
+        }
+        return medicoList;
     }
 
     @Override
@@ -51,47 +56,50 @@ public class MedicoServiceImpl implements MedicoService {
     }
 
     @Override
-    public MedicoDTO save(MedicoDTO medicoDTO) {
-
-        /* Saving this just in case it´s needed
-         LocalDate fecNacimiento = LocalDate.parse(medicoDTO.getFechaNacimiento());
+    public MedicoDTO save(MedicoDTO medicoDTO) throws Exception{
 
         Medico medico = medicoMapper.mapToEntity(medicoDTO);
-        medico.setFechaNacimiento(fecNacimiento);
-        */
-        //este es el entity que se guarda finalmente en la bd
+        medico.setFechaNacimiento(medicoDTO.getFechaNacimiento());
 
-        Medico entity = medicoRepository.save(medicoMapper.mapToEntity(medicoDTO));
-
-        saveServiciosMedico(medicoDTO, entity);
+        saveServiciosMedico(medicoDTO, medico);
         // se mapea lo guardado en la bd a un dto para mostrar los datos correctos
-        MedicoDTO response = medicoMapper.mapToDto(entity);
+        MedicoDTO response = medicoMapper.mapToDto(medico);
 
-        List<ServicioPrestadoDTO> serviciosPrestadosPorMedico = servicioPrestadoService.getByIdMedico(entity.getId());
+        List<ServicioPrestadoDTO> serviciosPrestadosPorMedico = servicioPrestadoService.getByIdMedico(medico.getId());
         if(!serviciosPrestadosPorMedico.isEmpty()){
-            List<ServicioMedicoDTO> servicioMedicoDTOS = new ArrayList<>();
-            for(ServicioPrestadoDTO prestadoDto : serviciosPrestadosPorMedico){
-                ServicioMedicoDTO dto = new ServicioMedicoDTO();
-                dto.setCodHospital(hospitalService.getById(prestadoDto.getIdMedico()).getCodHospital());
-                dto.setIdServicio(prestadoDto.getIdServicio());
-                servicioMedicoDTOS.add(dto);
-            }
-            response.setServicios(servicioMedicoDTOS);
+            response.setServicios(extractServicioMedicoDtos(serviciosPrestadosPorMedico));
         }else{
-            response.setServicios(null);
+            response.setServicios(medicoDTO.getServicios());
         }
+
+        Medico entity = medicoRepository.save(medico);
         return response;
     }
 
-    private void saveServiciosMedico(MedicoDTO medicoDTO, Medico entity) {
+    private List<ServicioMedicoDTO> extractServicioMedicoDtos(List<ServicioPrestadoDTO> serviciosPrestadosPorMedico) {
+        List<ServicioMedicoDTO> servicioMedicoDTOS = new ArrayList<>();
+        for(ServicioPrestadoDTO prestadoDto : serviciosPrestadosPorMedico){
+            ServicioMedicoDTO dto = new ServicioMedicoDTO();
+            dto.setCodHospital(hospitalService.getById(prestadoDto.getIdMedico()).getCodHospital());
+            dto.setIdServicio(prestadoDto.getIdServicio());
+            servicioMedicoDTOS.add(dto);
+        }
+        return servicioMedicoDTOS;
+    }
+
+    private void saveServiciosMedico(MedicoDTO medicoDTO, Medico entity) throws Exception {
         for(ServicioMedicoDTO dto : medicoDTO.getServicios()){
-            Long idHospital = hospitalService.getByCodHospital(dto.getCodHospital()).getId();
-            if(servicioPrestadoService.getByIdHospitalAndIdServicioAndIdMedico(idHospital, dto.getIdServicio(), entity.getId()) == null){
-                ServicioPrestadoDTO servicioPrestadoDTO = new ServicioPrestadoDTO();
-                servicioPrestadoDTO.setIdHospital(idHospital);
-                servicioPrestadoDTO.setIdServicio(dto.getIdServicio());
-                servicioPrestadoDTO.setIdMedico(entity.getId());
-                servicioPrestadoService.save(servicioPrestadoDTO);
+            try {
+                Long idHospital = hospitalService.getByCodHospital(dto.getCodHospital()).getId();
+                if (servicioPrestadoService.getByIdHospitalAndIdServicioAndIdMedico(idHospital, dto.getIdServicio(), entity.getId()) == null) {
+                    ServicioPrestadoDTO servicioPrestadoDTO = new ServicioPrestadoDTO();
+                    servicioPrestadoDTO.setIdHospital(idHospital);
+                    servicioPrestadoDTO.setIdServicio(dto.getIdServicio());
+                    servicioPrestadoDTO.setIdMedico(entity.getId());
+                    servicioPrestadoService.save(servicioPrestadoDTO);
+                }
+            }catch (Exception e){
+                throw new Exception("No se encontró el hospital o el servicio que se intenta registrar");
             }
         }
     }

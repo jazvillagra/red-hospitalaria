@@ -55,4 +55,10 @@ public class CamasServiceImpl implements CamasService {
     public CamasDTO getByIdHospitalAndIdServicio(Long idHospital, Long idServicio) {
         return camasMapper.mapToDto(camasRepository.findByIdHospitalAndIdServicio(idHospital, idServicio));
     }
+
+    @Override
+    public CamasDTO save(CamasDTO camas) {
+        Camas entity = camasMapper.mapToEntity(camas);
+        return camasMapper.mapToDto(camasRepository.save(entity));
+    }
 }

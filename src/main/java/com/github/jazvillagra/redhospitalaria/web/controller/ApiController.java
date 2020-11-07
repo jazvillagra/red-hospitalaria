@@ -1,18 +1,20 @@
 package com.github.jazvillagra.redhospitalaria.web.controller;
 
 import com.github.jazvillagra.redhospitalaria.constants.ApiPaths;
+import com.github.jazvillagra.redhospitalaria.dto.CamasDTO;
 import com.github.jazvillagra.redhospitalaria.dto.HospitalDTO;
 import com.github.jazvillagra.redhospitalaria.dto.MedicoDTO;
 import com.github.jazvillagra.redhospitalaria.dto.ServicioDTO;
-import com.github.jazvillagra.redhospitalaria.service.HospitalService;
-import com.github.jazvillagra.redhospitalaria.service.MedicoService;
-import com.github.jazvillagra.redhospitalaria.service.ServicioPrestadoService;
-import com.github.jazvillagra.redhospitalaria.service.ServicioService;
+import com.github.jazvillagra.redhospitalaria.entities.Camas;
+import com.github.jazvillagra.redhospitalaria.service.*;
 import com.github.jazvillagra.redhospitalaria.web.response.ListResponseDTO;
 import com.github.jazvillagra.redhospitalaria.web.response.ObjectResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author jazvillagra
@@ -32,6 +34,9 @@ public class ApiController {
 
     @Autowired
     private ServicioPrestadoService servicioPrestadoService;
+
+    @Autowired
+    private CamasService camasService;
 
     /**
      * Hospital Services
@@ -77,7 +82,7 @@ public class ApiController {
     }
 
     @PostMapping(ApiPaths.MEDICO_SAVE)
-    public ResponseEntity<ObjectResponseDTO<MedicoDTO>> saveMedico(@RequestBody MedicoDTO medicoDTO){
+    public ResponseEntity<ObjectResponseDTO<MedicoDTO>> saveMedico(@RequestBody MedicoDTO medicoDTO) throws Exception{
         return ResponseEntity.ok(ObjectResponseDTO.success(medicoService.save(medicoDTO)));
     }
 
@@ -85,5 +90,12 @@ public class ApiController {
     public ResponseEntity<ObjectResponseDTO<MedicoDTO>> getMedicoByNombreApellido(@RequestParam String nombres,
                                                                                   @RequestParam String apellidos) {
         return ResponseEntity.ok(ObjectResponseDTO.success(medicoService.getByNombresApellidos(nombres, apellidos)));
+    }
+    /**
+     * Camas services
+     */
+    @PostMapping(ApiPaths.REGISTRAR_SERVICIO_HOSPITAL)
+    public ResponseEntity<ObjectResponseDTO<CamasDTO>> registrarServicioHospital(@RequestBody CamasDTO camas) {
+        return ResponseEntity.ok(ObjectResponseDTO.success(camasService.save(camas)));
     }
 }

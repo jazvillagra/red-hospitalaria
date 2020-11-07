@@ -31,4 +31,8 @@ public class ApiPaths {
     public static final String SERVICIO_PRESTADO_BY_ID_HOSPITAL = BASE_SERVICIO_PRESTADO + "/{idHospital}";
     public static final String SERVICIO_PRESTADO_BY_ID_SERVICIO = SERVICIO_PRESTADO_BY_ID_HOSPITAL + "/{idServicio}";
     public static final String SERVICIO_PRESTADO_BY_ID_MEDICO = SERVICIO_PRESTADO_BY_ID_SERVICIO + "/{idMedico}";
+    /**
+     * Camas URLs
+     */
+    public static final String REGISTRAR_SERVICIO_HOSPITAL = BASE_HOSPITAL + "/registrar-servicio";
 }

@@ -18,4 +18,5 @@ public interface CamasRepository extends JpaRepository<Camas, CamasDTO> {
     Camas findByIdHospitalAndIdServicio(Long idHospital, Long idServicio);
 
     List<Camas> findByIdServicio(Long idServicio);
+
 }

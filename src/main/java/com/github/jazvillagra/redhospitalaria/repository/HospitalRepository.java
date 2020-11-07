@@ -16,5 +16,4 @@ public interface HospitalRepository extends JpaRepository<Hospital, HospitalDTO>
     Hospital findById(Long id);
 
     Hospital findByCodHospital(String codHospital);
-
 }

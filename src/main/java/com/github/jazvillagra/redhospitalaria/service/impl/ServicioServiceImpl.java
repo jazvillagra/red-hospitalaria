@@ -34,7 +34,8 @@ public class ServicioServiceImpl implements ServicioService {
     @Override
     public ServicioDTO save(ServicioDTO servicioDTO) {
         actualizarConteoCamas(servicioDTO);
-        return mapper.mapToDto(repository.save(mapper.mapToEntity(servicioDTO)));
+        Servicio entity = mapper.mapToEntity(servicioDTO);
+        return mapper.mapToDto(repository.save(entity));
     }
 
     @Override

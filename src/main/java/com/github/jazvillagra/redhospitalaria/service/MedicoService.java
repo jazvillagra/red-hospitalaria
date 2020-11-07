@@ -15,5 +15,5 @@ public interface MedicoService {
 
     MedicoDTO getByNombresApellidos(String nombres, String apellidos);
 
-    MedicoDTO save(MedicoDTO medicoDTO);
+    MedicoDTO save(MedicoDTO medicoDTO) throws Exception;
 }
