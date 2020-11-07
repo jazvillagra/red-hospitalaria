@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 /**
@@ -97,5 +98,14 @@ public class ApiController {
     @PostMapping(ApiPaths.REGISTRAR_SERVICIO_HOSPITAL)
     public ResponseEntity<ObjectResponseDTO<CamasDTO>> registrarServicioHospital(@RequestBody CamasDTO camas) {
         return ResponseEntity.ok(ObjectResponseDTO.success(camasService.save(camas)));
+    }
+
+    @GetMapping(ApiPaths.CAMAS_DISPONIBLES_BY_HOSPITAL)
+    public ResponseEntity<Integer> getCamasDisponiblesByCodHospital(@PathVariable String codHospital) {
+        return ResponseEntity.ok(camasService.getCamasByHospital(codHospital));
+    }
+    @GetMapping(ApiPaths.CAMAS_DISPONIBLES_BY_ID_SERVICIO)
+    public ResponseEntity<Integer> getCamasDisponiblesByIdServicio(@PathVariable Long idServicio) {
+        return ResponseEntity.ok(camasService.getCamasByServicio(idServicio));
     }
 }

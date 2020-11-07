@@ -33,17 +33,13 @@ public class ServicioServiceImpl implements ServicioService {
 
     @Override
     public ServicioDTO save(ServicioDTO servicioDTO) {
-        actualizarConteoCamas(servicioDTO);
         Servicio entity = mapper.mapToEntity(servicioDTO);
+        entity.setNroCamasTotales(camasService.getCamasByServicio(servicioDTO.getId()));
         return mapper.mapToDto(repository.save(entity));
     }
 
     @Override
     public ServicioDTO getByCodServicio(String codServicio) {
         return mapper.mapToDto(repository.findByCodServicio(codServicio));
-    }
-    // TODO probar si esto funciona
-    private void actualizarConteoCamas(ServicioDTO servicioDTO){
-        servicioDTO.setNroCamasTotales(camasService.getCamasByServicio(servicioDTO.getId()));
     }
 }

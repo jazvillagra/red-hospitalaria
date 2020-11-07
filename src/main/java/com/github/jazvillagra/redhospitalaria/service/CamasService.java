@@ -11,9 +11,9 @@ public interface CamasService {
 
     List<CamasDTO> getByIdHospital(Long idHospital);
 
-    List<CamasDTO> getByIdServicio(Long idServicio);
+    int getByIdServicio(Long idServicio);
 
-    int getCamasByHospital(Long idHospital);
+    int getCamasByHospital(String codHospital);
 
     int getCamasByServicio(Long idServicio);
 

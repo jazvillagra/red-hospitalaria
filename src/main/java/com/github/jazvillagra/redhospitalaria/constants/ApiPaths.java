@@ -34,5 +34,8 @@ public class ApiPaths {
     /**
      * Camas URLs
      */
+    public static final String BASE_CAMAS = BASE + "/camas";
     public static final String REGISTRAR_SERVICIO_HOSPITAL = BASE_HOSPITAL + "/registrar-servicio";
+    public static final String CAMAS_DISPONIBLES_BY_HOSPITAL = BASE_CAMAS + "/hospital/{codHospital}";
+    public static final String CAMAS_DISPONIBLES_BY_ID_SERVICIO = BASE_CAMAS + "/servicio/{idServicio}";
 }
