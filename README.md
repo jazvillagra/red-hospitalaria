@@ -23,4 +23,4 @@ Jazmín Villagra
     $ mvn clean install -DskipTests
     
 
-5- Se puede acceder a traves de http://192.168.0.8:8080/api/    
+5- Se puede acceder a traves de http://192.168.0.18:8080/api/    
